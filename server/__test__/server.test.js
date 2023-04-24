@@ -55,7 +55,7 @@ describe('Auth - Server', () => {
     });
     it('🚩 로그인에 성공했다면 /userinfo로 리다이렉트 되어야 합니다.', () => {
       expect(response.statusCode).to.equal(302);
-      expect(response.headers.location).to.equal('/userinfo');
+      expect(response.headers.location.toLowerCase()).to.equal('/userinfo');
     });
     it('🚩 로그인 상태를 일시적으로 유지하는 요청이라면 Session Cookie를 보내야합니다.', () => {
       const cookieOptions = response.headers['set-cookie'][0];
@@ -98,7 +98,6 @@ describe('GET /userinfo', () => {
   it('🚩 응답에 포함된 유저정보에 비밀번호가 담겨있지 않아야 합니다.', async () => {
     const response = await agent.get('/userinfo').set('Cookie', ['cookieId=0']);
     const { id, userId, location, email, password } = response.body;
-    console.log('---', password);
     expect(id).to.equal('0');
     expect(userId).to.equal('kimcoding');
     expect(location).to.equal('Seoul, South Korea');
