@@ -19,6 +19,7 @@ describe('Auth - Server', () => {
         },
       });
       resCookies = response.headers['set-cookie'].join(',');
+      console.log(response.headers['set-cookie'].join(','))
     });
     describe('Cookie Option', () => {
       it('쿠키 옵션중 Domain 옵션은 `localhost`로 설정되어야 합니다', () => {
@@ -37,8 +38,8 @@ describe('Auth - Server', () => {
         expect(resCookies).include('Secure');
       });
 
-      it('쿠키 옵션중 SameSite 옵션은 `none`으로 설정되어야 합니다', () => {
-        expect(resCookies).include('SameSite=None');
+      it('쿠키 옵션중 SameSite 옵션은 `Strict`로 설정되어야 합니다', () => {
+        expect(resCookies).include('SameSite=Strict');
       });
     });
     it('🚩 db에 존재하는 유저가 아니라면, 상태 코드 401와 함께 Not Authorized라는 메세지가 응답에 포함되어야 합니다.', async () => {
