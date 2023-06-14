@@ -1,8 +1,18 @@
 import axios from 'axios';
 import React from 'react';
 
-export default function Mypage({ userInfo }) {
+export default function Mypage({ userInfo, setIsLogin, setUserInfo }) {
   const logoutHandler = () => {
+    return axios
+      .post("http://localhost:4000/logout")
+      .then((res) => {
+      setIsLogin(false)
+      setUserInfo(null)
+      })
+      .catch((err) => {
+      console.log(err.response.data)
+      });
+
     /*
     TODO: Logout 버튼을 눌렀을 시 Login 페이지로 돌아갈 수 있도록 구현하세요. 
     return axios

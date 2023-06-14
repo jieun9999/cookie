@@ -13,6 +13,17 @@ function App() {
   const [userInfo, setUserInfo] = useState(null);
 
   const authHandler = () => {
+
+    return axios
+    .get("http://localhost:4000/userinfo")
+    .then((res)=>{
+      setIsLogin(true)
+      setUserInfo(res.data)
+    })
+    .catch((err)=>{
+     console.log(err.response.data)
+    });
+
     /*
     TODO: 초기 화면 렌더링시, 서버에 유저 정보를 요청하여 Login 또는 Mypage가 렌더링되도록 구현합니다.
     return axios
@@ -39,14 +50,14 @@ function App() {
             path='/'
             element={
               isLogin ? (
-                <Mypage
+                <Mypage userInfo={userInfo} setIsLogin={setIsLogin} setUserInfo={setUserInfo}
                 /*
                 TODO: 렌더링에 필요한 App의 상태와 이를 하위 컴포넌트에서 변경할 수 있도록 props를 전달하세요. 
                 */
                 />
               ) : (
-                <Login
-                /*
+              <Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}
+                 /*
                 TODO: App의 상태를 변경할 수 있도록 props를 전달하세요. 
                 */
                 />

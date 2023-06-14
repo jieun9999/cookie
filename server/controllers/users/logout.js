@@ -1,4 +1,14 @@
 module.exports = (req, res) => {
+  
+  const cookiesOption = {
+    domain: 'localhost',
+    path: '/',
+   secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  }
+
+  res.status(205).clearCookie('cookieId', cookiesOption).send("logout")
   /*
    * TODO: 로그아웃 로직을 구현하세요.
    *
